@@ -219,13 +219,13 @@ chain.start().then(() => {
 });
 ```
 
-##Generators
-[Much amaze, super wow]
+## Generators
+`*[Much amaze, super wow]*`
 
-While async is the perferred pattern for me, there's still more options which give you a similar pattern, this more or less is the same
+While `async` is the perferred pattern for me, there's still more options which give you a similar pattern, this more or less is the same
 functionality as Async function definitions, the logic is very similar, just how it's processed is different.
 
-Generators allow us to break down the process and do something with each value returned, when it's returned, this is pretty powerful!. An example would be to use the class above, but convert it to generator syntax and access the values from each promise, outside the main class Chain.
+[Generators][generators] allow us to break down the process and do something with each value returned, when it's returned, this is pretty powerful!. An example would be to use the Class above, but convert it to generator syntax and access the values from each promise, outside the main class Chain.
 
 ```js
 class Chain {
@@ -237,7 +237,7 @@ class Chain {
 		this.cb = cb;
 		this.chain = this.asyncChain(this.generator(this));
 	}
-
+    // the logic to recurssively and asyncronously process the next method in a generator.
 	asyncChain(it, context = undefined) {
 		let generator = typeof it === 'function' ? it() : it // Create generator if necessary			
 		let { value: promise, done : success } = generator.next();
@@ -247,9 +247,11 @@ class Chain {
 			promise.then(resolved => this.asyncChain(generator, resolved))
 			.catch(error => generator.throw(error)) // Defer to generator error handling
 		}
-		
 	}
-
+    // * denotes this function as a generator, yield is similar to await, 
+    // although it is only ever 'resolved' when generator.next() is called, it's not relying
+    // on the actual promise being resolved.
+    
 	* generator(self) {
 		yield self.process('pre');
 	    yield self.process('scss');
@@ -298,6 +300,6 @@ There's a million ways to do this, we can replicate the same result above with `
 
 Any feedback is always welcome, feel free to contact me any time at [www.shannonhochkins.com]('http://www.shannonhochkins.com')!
 
-   [generators]: https://davidwalsh.name/es6-generators
-   [promises]: <https://davidwalsh.name/promises>
+   [generators]: <https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Iterators_and_Generators>
+   [promises]: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise>
    
