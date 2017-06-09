@@ -7,6 +7,7 @@ Let's start with the very basic product example where we need to retreive a pric
 
 ## Structured callback style
 `*[much discomfort, max old, mehh]*`
+
 This really is an old pattern and is very outdated, it's not sequential to read and it's easy to lose track when debugging. Using this pattern is not recommended as it creates a [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) effect, which is horrid.
 
 ***Note:** For brevity, most actual logic and handling have been kept out of these examples.*
@@ -57,7 +58,7 @@ getProduct('xyz')
 // get our product by id.
 function getProduct(id) {
     return new Promise(resolve => {
-        request(`/product/${id}`', (err, res, body) => {
+        request(`/product/${id}`, (err, res, body) => {
           resolve(body);
         });
     });
@@ -108,6 +109,7 @@ This is much nicer, but we can do better, promises are very powerful, es6/es7 ha
 
 ## Using async function definitions
 `*[as good as jelly babies]*`
+
 Async-await is a godlike new feature, synchronous and asynchronous code can now become indistinguishable. Async-await is a new concept which will push developers into great design patterns, very readable code & easy debugging.
 Async function definitions are basically a wrapper for [generators] and [promises], think of each await as an automatic promise binder, which will call the `next` method whenever the promise is resolved.
 
