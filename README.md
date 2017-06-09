@@ -272,6 +272,7 @@ class Chain {
 	  });
 	}
 }
+module.exports = Chain;
 ```
 
 Now when we request the file, and start the chain, we'll have access to each value resolved from each promise, as they're resolved. 
@@ -302,4 +303,3 @@ Any feedback is always welcome, feel free to contact me any time at [www.shannon
 
    [generators]: <https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Iterators_and_Generators>
    [promises]: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise>
-   
