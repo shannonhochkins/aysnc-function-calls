@@ -3,9 +3,20 @@ We're going to take a look a few examples of how to chain multiple asynchronys f
 
 The aim of this document is to teach you a few techniques on how to try and acheive a synchronous style of coding in an aysnchonous environment. Synchronous code is much easier to follow and debug, aysnc is generally better in terms of performance and flexibility, (do this, then do that, while doing this etc...).
 
+
+Table of contents
+=================
+
+  * [Structured callback style](#structured-callback-style)
+  * [Promises](#promises)
+  * [Async function definitions](#using-async-functiondefinitions)
+  * [Generators](#generators)
+
 Let's start with the very basic product example where we need to retreive a price for a product, and then retreive a discount price from a coupon code, and return the final value for the product once ready.
 
-## Structured callback style
+
+Structured callback style
+=========================
 `*[much discomfort, max old, mehh]*`
 
 This really is an old pattern and is very outdated, it's not sequential to read and it's easy to lose track when debugging. Using this pattern is not recommended as it creates a [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) effect, which is horrid.
@@ -38,7 +49,8 @@ function updatePrice(discount = 0) {
 ```
 While the above pattern does work, we can do better...
 
-## Promises
+Promises
+=========================
 `*[max excite, many happy, yay]*`
 
 Promises are great, they solve the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) problem and create a more readable code structure.
@@ -107,7 +119,8 @@ getProduct('xyz')
 This is much nicer, but we can do better, promises are very powerful, es6/es7 has given us even more power!
 
 
-## Using async function definitions
+Using async function definitions
+=========================
 `*[as good as jelly babies]*`
 
 Async-await is a godlike new feature, synchronous and asynchronous code can now become indistinguishable. Async-await is a new concept which will push developers into great design patterns, very readable code & easy debugging.
@@ -219,7 +232,8 @@ chain.start().then(() => {
 });
 ```
 
-## Generators
+Generators
+=========================
 `*[Much amaze, super wow]*`
 
 While `async` is the perferred pattern for me, there's still more options which give you a similar pattern, this more or less is the same
@@ -272,7 +286,6 @@ class Chain {
 	  });
 	}
 }
-module.exports = Chain;
 ```
 
 Now when we request the file, and start the chain, we'll have access to each value resolved from each promise, as they're resolved. 
@@ -303,3 +316,4 @@ Any feedback is always welcome, feel free to contact me any time at [www.shannon
 
    [generators]: <https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Iterators_and_Generators>
    [promises]: <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise>
+   
