@@ -9,7 +9,7 @@ Table of contents
 
   * [Structured callback style](#structured-callback-style)
   * [Promises](#promises)
-  * [Async function definitions](#using-async-functiondefinitions)
+  * [Async function definitions](#using-async-function-definitions)
   * [Generators](#generators)
 
 Let's start with the very basic product example where we need to retreive a price for a product, and then retreive a discount price from a coupon code, and return the final value for the product once ready.
