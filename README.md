@@ -219,6 +219,83 @@ chain.start().then(() => {
 });
 ```
 
+##Generators
+[Much amaze, super wow]
+
+While async is the perferred pattern for me, there's still more options which give you a similar pattern, this more or less is the same
+functionality as Async function definitions, the logic is very similar, just how it's processed is different.
+
+Generators allow us to break down the process and do something with each value returned, when it's returned, this is pretty powerful!. An example would be to use the class above, but convert it to generator syntax and access the values from each promise, outside the main class Chain.
+
+```js
+class Chain {
+	constructor(...args) {
+		this.args = args;
+	}
+
+	start(cb) {
+		this.cb = cb;
+		this.chain = this.asyncChain(this.generator(this));
+	}
+
+	asyncChain(it, context = undefined) {
+		let generator = typeof it === 'function' ? it() : it // Create generator if necessary			
+		let { value: promise, done : success } = generator.next();
+		if (context) this.cb(context, success);
+		if (success) return;
+		if ( promise instanceof Promise ) {
+			promise.then(resolved => this.asyncChain(generator, resolved))
+			.catch(error => generator.throw(error)) // Defer to generator error handling
+		}
+		
+	}
+
+	* generator(self) {
+		yield self.process('pre');
+	    yield self.process('scss');
+	    yield self.process('js');
+	    yield self.process('html');
+	    yield self.process('assets');
+	    yield self.process('deploy');
+	    yield self.process('post');
+	    return true;
+	}
+
+	// simulate async methods in syncronous pattern.
+	process(x) {
+	  return new Promise(resolve => {
+	    setTimeout(() => {
+	      resolve(x);
+	    }, 200);
+	  });
+	}
+}
+```
+
+Now when we request the file, and start the chain, we'll have access to each value resolved from each promise, as they're resolved. 
+
+```js
+// Grab chain class from above.
+const Chain = require('./_chain.js');
+// call chain start method, which accepts a function which will be called
+// whenever a promise is resolved, we could have
+new Chain().start((processValue, isFinished) => {
+    console.log(processValue);
+    if (isFinished) console.log('all finished');
+});
+// will output a new line every 200ms.
+// pre
+// scss
+// js
+// html
+// assets
+// deploy
+// post
+// all finished
+```
+
+There's a million ways to do this, we can replicate the same result above with `async` too, which would be much cleaner, this just demonstrates what's possible with generators when writing async code syncronously.
+
 Any feedback is always welcome, feel free to contact me any time at [www.shannonhochkins.com]('http://www.shannonhochkins.com')!
 
    [generators]: https://davidwalsh.name/es6-generators
