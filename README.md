@@ -25,7 +25,7 @@ function getProduct(id) {
 }
 // request the discount via code.
 function getDiscount(code) {
-    request(`/coupon/${code}`', (err, res, body) => {
+    request(`/coupon/${code}`, (err, res, body) => {
       updatePrice(body);
     });
 }
@@ -39,6 +39,7 @@ While the above pattern does work, we can do better...
 
 ## Promises
 `*[max excite, many happy, yay]*`
+
 Promises are great, they solve the [Pyramid of doom](https://en.wikipedia.org/wiki/Pyramid_of_doom_(programming)) problem and create a more readable code structure.
 This assumes you at least have a basic understanding of what promises are, if you don't head over to: [David Walsh's post on promises.][promises]
 Promises are more of the norm when it comes to web patterns, so let's explore some of the possiblities by converting the above nested callback hell from above, into a promise pattern
@@ -64,7 +65,7 @@ function getProduct(id) {
 // request the discount via code.
 function getDiscount(code) {
     return new Promise(resolve => {
-        request(`/coupon/${code}`', (err, res, body) => {
+        request(`/coupon/${code}`, (err, res, body) => {
           resolve(body);
         });
     });
