@@ -1,4 +1,4 @@
-# Asynchronys Function Calls
+# Attempting to write Asynchronous code, Synchronously.
 We're going to take a look a few examples of how to chain multiple asynchronys functions, there's many options, we'll start with the basics and explore some of the newer features available in es6/es7. 
 
 The aim of this document is to teach you a few techniques on how to try and acheive a synchronous style of coding in an aysnchonous environment. Synchronous code is much easier to follow and debug, aysnc is generally better in terms of performance and flexibility, (do this, then do that, while doing this etc...).
